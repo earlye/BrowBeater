@@ -19,11 +19,11 @@ SOURCES += main.cpp\
 
 HEADERS  += wmainwindow.h \
     wbrowserbutton.h \
-    BrowserRegistrar.hpp
+    platform_interface.hpp
 
 FORMS    += wmainwindow.ui
 
 mac {
-  OBJECTIVE_SOURCES += osx.mm
+  OBJECTIVE_SOURCES += platform_osx.mm
   LIBS += -framework AppKit
 }

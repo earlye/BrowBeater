@@ -5,3 +5,5 @@ build-*
 .*
 ui_*.h
 Makefile
+*~
+moc_*

@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "BrowserRegistrar.hpp"
+#include "platform_interface.hpp"
 
 namespace Ui {
 class WMainWindow;

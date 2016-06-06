@@ -1,4 +1,4 @@
-#include "BrowserRegistrar.hpp"
+#include "platform_interface.hpp"
 
 #include <Cocoa/Cocoa.h>
 

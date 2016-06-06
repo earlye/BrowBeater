@@ -1,7 +1,7 @@
 #ifndef WBROWSERBUTTON_H
 #define WBROWSERBUTTON_H
 
-#include "BrowserRegistrar.hpp"
+#include "platform_interface.hpp"
 
 #include <QPushButton>
 

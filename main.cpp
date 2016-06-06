@@ -1,6 +1,6 @@
 #include "wmainwindow.h"
 
-#include "BrowserRegistrar.hpp"
+#include "platform_interface.hpp"
 
 #include <QApplication>
 #include <iostream>
