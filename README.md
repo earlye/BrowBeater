@@ -17,14 +17,15 @@ backlog is more than a little crucial, though :-D.
 
 ### BACK LOG:
 
-* ~Figure out how to register Brow Beater as a browser on mac~
+* ~~Figure out how to register Brow Beater as a browser on mac~~
   Apparently this requires a bunch of info.plist magic. It looks like
   you have to specify an application version along with a whole bunch
   of url schemes and file types. I'm not sure what the minimal set is.
 
 * Make sure that clicking a link outside BrowBeater will launch
   BrowBeater, and that the user can then use BrowBeater to launch
-  other browsers.
+  other browsers. This is clearly not as straightforward as "accept
+  urls on cli," at least on OSX.
 
 * Filter BrowBeater out of the list of browsers.
 
