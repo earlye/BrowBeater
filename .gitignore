@@ -4,3 +4,4 @@ build-*
 *.o
 .*
 ui_*.h
+Makefile
