@@ -1,0 +1,6 @@
+build-*
+*.pro.user
+*.app
+*.o
+.*
+ui_*.h
