@@ -27,3 +27,5 @@ And now, I've got the Mac version (mostly) working.
 * Write Linux platform code.
 
 * Make the UI not so... F!@#$ ugly.
+
+* Add continuous integration and deployment.
