@@ -10,6 +10,8 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     WMainWindow w;
 
+    registerApplication(argv[0]);
+
     std::vector< std::string const > urls;
     for (int i = 1; i < argc; ++i) {
         urls.push_back(std::string(argv[i]));

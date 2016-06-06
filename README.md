@@ -12,15 +12,21 @@ write my own. I've been itching to see what's new with Qt, so I
 figured I'd download the latest Qt Creator (3.6.1), the latest Qt
 (5.6.0), and see if I could pull it off.
 
-And now, I've got the Mac version (mostly) working.
+And now, I've got the Mac version (mostly) working. Next item in the
+backlog is more than a little crucial, though :-D.
 
 ### BACK LOG:
 
-* Figure out how to register Brow Beater as a browser on mac
+* ~Figure out how to register Brow Beater as a browser on mac~
+  Apparently this requires a bunch of info.plist magic. It looks like
+  you have to specify an application version along with a whole bunch
+  of url schemes and file types. I'm not sure what the minimal set is.
 
 * Make sure that clicking a link outside BrowBeater will launch
   BrowBeater, and that the user can then use BrowBeater to launch
   other browsers.
+
+* Filter BrowBeater out of the list of browsers.
 
 * Write Windows platform code.
 
@@ -29,3 +35,6 @@ And now, I've got the Mac version (mostly) working.
 * Make the UI not so... F!@#$ ugly.
 
 * Add continuous integration and deployment.
+
+* Tech Debt: minimize the amount of info.plist magic.
+

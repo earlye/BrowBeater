@@ -26,4 +26,19 @@ FORMS    += wmainwindow.ui
 mac {
   OBJECTIVE_SOURCES += platform_osx.mm
   LIBS += -framework AppKit
+  QMAKE_INFO_PLIST += mac/info.plist
+  DISTFILES += mac/browbeater.icns
+
+  PkgInfo.target      =   PkgInfo
+  PkgInfo.depends     =
+  PkgInfo.commands    =   echo "APPLWISPR" > BrowBeater.app/Contents/PkgInfo
+  QMAKE_EXTRA_TARGETS +=  PkgInfo
+  PRE_TARGETDEPS      +=  PkgInfo
+
+  icons.target        = icons
+  icons.depends       = mac/browbeater.icns
+  icons.commands      = cp $< BrowBeater.app/Contents/Resources/
+  QMAKE_EXTRA_TARGETS += icons
+  PRE_TARGETDEPS      += icons                        
 }
+

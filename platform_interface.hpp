@@ -19,5 +19,6 @@ public:
 };
 
 std::shared_ptr< BrowserRegistrar > getBrowserRegistrar();
+void registerApplication(std::string const& path);
 
 #endif

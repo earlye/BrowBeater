@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleIconFile</key>
+    <string>browbeater.icns</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleGetInfoString</key>
+    <string>BrowBeater 0.0.1</string>
+    <key>CFBundleShortVersionString</key>
+    <string>0.0.1</string>
+    <key>CFBundleVersion</key>
+    <string>0.0.1</string>
+    <key>CFBundleSignature</key>
+    <string>????</string>
+    <key>CFBundleExecutable</key>
+    <string>BrowBeater</string>
+    <key>CFBundleName</key>
+    <string>BrowBeater</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.whispersoft.browbeater</string>
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+	<key>CFBundleURLName</key>
+	<string>Web site URL</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+	  <string>http</string>
+	</array>
+      </dict>
+      <dict>
+	<key>CFBundleURLName</key>
+	<string>local file URL</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+	  <string>file</string>
+	</array>
+      </dict>
+      <dict>
+	<key>CFBundleURLName</key>
+	<string>ftp URL</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+	  <string>ftp</string>
+	</array>
+      </dict>
+      <dict>
+	<key>CFBundleURLName</key>
+	<string>finger URL</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+	  <string>finger</string>
+	</array>
+      </dict>
+      <dict>
+	<key>CFBundleURLName</key>
+	<string>telnet URL</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+	  <string>telnet</string>
+	</array>
+      </dict>
+      <dict>
+	<key>CFBundleURLName</key>
+	<string>gohper URL</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+	  <string>gopher</string>
+	</array>
+      </dict>
+      <dict>
+	<key>CFBundleURLName</key>
+	<string>WAIS URL</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+	  <string>wais</string>
+	</array>
+      </dict>
+      <dict>
+	<key>CFBundleURLName</key>
+	<string>Lynxlet Favelet URL</string>
+	<key>CFBundleURLSchemes</key>
+	<array>
+	  <string>x-lynxlet</string>
+	</array>
+      </dict>
+    </array>
+    <key>CFBundleDocumentTypes</key>
+    <array>
+      <dict>
+	<key>CFBundleTypeExtensions</key>
+	<array>
+	  <string>html</string>
+	  <string>htm</string>
+	</array>
+	<key>CFBundleTypeMIMETypes</key>
+	<array>
+	  <string>text/html</string>
+	</array>
+	<key>CFBundleTypeName</key>
+	<string>HTML document</string>
+	<key>CFBundleTypeOSTypes</key>
+	<array>
+	  <string>HTML</string>
+	</array>
+	<key>CFBundleTypeRole</key>
+	<string>Viewer</string>
+	<key>LSTypeIsPackage</key>
+	<false/>
+	<key>NSPersistentStoreTypeKey</key>
+	<string>XML</string>
+      </dict>
+      <dict>
+	<key>CFBundleTypeExtensions</key>
+	<array>
+	  <string>url</string>
+	</array>
+	<key>CFBundleTypeName</key>
+	<string>Web site location</string>
+	<key>CFBundleTypeOSTypes</key>
+	<array>
+	  <string>LINK</string>
+	</array>
+	<key>CFBundleTypeRole</key>
+	<string>Viewer</string>
+	<key>LSTypeIsPackage</key>
+	<false/>
+	<key>NSPersistentStoreTypeKey</key>
+	<string>XML</string>
+      </dict>
+      <dict>
+	<key>CFBundleTypeName</key>
+	<string>Web internet location</string>
+	<key>CFBundleTypeOSTypes</key>
+	<array>
+	  <string>ilht</string>
+	</array>
+	<key>CFBundleTypeRole</key>
+	<string>Viewer</string>
+	<key>LSTypeIsPackage</key>
+	<false/>
+	<key>NSPersistentStoreTypeKey</key>
+	<string>XML</string>
+      </dict>
+      <dict>
+	<key>CFBundleTypeExtensions</key>
+	<array>
+	  <string>*</string>
+	</array>
+	<key>CFBundleTypeName</key>
+	<string>Generic Document</string>
+	<key>CFBundleTypeOSTypes</key>
+	<array>
+	  <string>****</string>
+	</array>
+	<key>CFBundleTypeRole</key>
+	<string>Viewer</string>
+      </dict>
+    </array>
+
+  </dict>
+</plist>

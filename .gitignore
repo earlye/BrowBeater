@@ -7,3 +7,6 @@ ui_*.h
 Makefile
 *~
 moc_*
+qmake_qmake_immediate.qrc
+qrc_qmake_qmake_immediate.cpp
+
