@@ -36,6 +36,8 @@ backlog is more than a little crucial, though :-D.
 
 * ~~Make the UI not so... F!@#$ ugly.~~
 
+* Give BrowBeater its own icons.
+
 * Figure out how to show browsers' icons in their respective buttons.
 
 * Write Windows platform code.
