@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+class BrowBeaterApplication;
+
 class Browser
 {
 public:
@@ -20,5 +22,4 @@ public:
 
 std::shared_ptr< BrowserRegistrar > getBrowserRegistrar();
 void registerApplication(std::string const& path);
-
 #endif

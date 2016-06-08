@@ -1,8 +1,51 @@
 #include "platform_interface.hpp"
 
+#include "browbeaterapplication.h"
+
+#include <QApplication>
+#include <QMessageBox>
+
 #include <Cocoa/Cocoa.h>
+#include <Carbon/Carbon.h>
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
+
+void throwOSXStatus(OSStatus status)
+{
+    switch(status)
+    {
+    case noErr: break;
+#define X(STATUS) case STATUS: throw std::runtime_error(#STATUS);
+    X(kLSAppInTrashErr)
+    X(kLSUnknownErr)
+    X(kLSNotAnApplicationErr)
+    X(kLSNotInitializedErr)
+    X(kLSDataUnavailableErr)
+    X(kLSApplicationNotFoundErr)
+    X(kLSUnknownTypeErr)
+    X(kLSDataTooOldErr)
+    X(kLSDataErr)
+    X(kLSLaunchInProgressErr)
+    X(kLSNotRegisteredErr)
+    X(kLSAppDoesNotClaimTypeErr)
+    X(kLSAppDoesNotSupportSchemeWarning)
+    X(kLSServerCommunicationErr)
+    X(kLSCannotSetInfoErr)
+    X(kLSNoRegistrationInfoErr)
+    X(kLSIncompatibleSystemVersionErr)
+    X(kLSNoLaunchPermissionErr)
+    X(kLSNoExecutableErr)
+    X(kLSNoClassicEnvironmentErr)
+    X(kLSMultipleSessionsNotSupportedErr)
+#undef X
+            default:
+        std::stringstream msg;
+        msg << "Unrecognized status:" << status;
+            throw std::runtime_error(msg.str());
+    }
+}
 
 class OsxBrowser : public Browser
 {
@@ -24,15 +67,19 @@ public:
     NSMutableArray* itemUrls = [NSMutableArray arrayWithCapacity:urls.size()];
     if (!itemUrls)
       throw std::runtime_error("wtf, itemUrls?");
-    for( auto const& url : urls ) {
-      NSString* nsStringUrl = [NSString stringWithUTF8String:url.c_str()];
-      if (!nsStringUrl)
-	throw std::runtime_error("wtf, eh?");
-      std::cout << "2. opening url:" << url << std::endl;
-      NSURL* itemUrl = [NSURL URLWithString:nsStringUrl];
-      if (!itemUrl)
-	throw std::runtime_error("wtf, url?");
-      [itemUrls addObject:itemUrl];
+
+    for( auto const& url : urls )
+    {
+        std::cout << "opening url: " << url << std::endl;
+        NSString* nsStringUrl = [NSString stringWithUTF8String:url.c_str()];
+        if (!nsStringUrl)
+            throw std::runtime_error("wtf, eh?");
+
+        std::cout << "2. opening url:" << url << std::endl;
+        NSURL* itemUrl = [NSURL URLWithString:nsStringUrl];
+        if (!itemUrl)
+            throw std::runtime_error("wtf, url?");
+        [itemUrls addObject:itemUrl];
     }
 
     LSLaunchURLSpec args;
@@ -122,27 +169,36 @@ public:
     std::vector< std::shared_ptr< Browser > > result;
     CFArrayRef handlers = LSCopyAllHandlersForURLScheme(CFSTR("http"));
     if (handlers)
-      {
-	for(CFIndex i=0; i<CFArrayGetCount(handlers); i++)
-          {
+    {
+        for(CFIndex i=0; i<CFArrayGetCount(handlers); i++)
+        {
             CFStringRef nsbrowser = (CFStringRef)CFArrayGetValueAtIndex(handlers, i);
             std::string browser = std::string([(id)nsbrowser UTF8String]);
+            std::cout << "browser:" << browser << std::endl;
+            if ("com.whispersoft.browbeater" == browser) {
+                continue;
+            }
 
             CFErrorRef error = NULL;
             CFArrayRef nsurls = LSCopyApplicationURLsForBundleIdentifier( nsbrowser, &error );
             if (nsurls)
-	      {
+            {
                 for (CFIndex j=0; j<CFArrayGetCount(nsurls); ++j)
-		  {
+                {
                     CFURLRef nsurl = (CFURLRef)CFArrayGetValueAtIndex(nsurls, j);
                     std::string name = std::string([[[[(id)nsurl absoluteString] lastPathComponent] stringByDeletingPathExtension] UTF8String]);
                     name = url_decode(name);
                     result.push_back(OsxBrowser::builder().set_name( name ).set_bundle_id( nsbrowser ).set_app_url(nsurl).build());
-		  }
-	      }
-	  }
-      }
-
+                }
+            }
+        }
+    }
+    std::sort( result.begin(),result.end(), [](std::shared_ptr<Browser> pBrowserL, std::shared_ptr<Browser> pBrowserR) {
+        return pBrowserL->get_name() < pBrowserR->get_name();
+    });
+    for(auto pBrowser : result) {
+        std::cout << "sorted:" << pBrowser->get_name() << std::endl;
+    }
     return result;
   }
 };
@@ -152,35 +208,6 @@ std::shared_ptr< BrowserRegistrar > getBrowserRegistrar()
   return std::shared_ptr< BrowserRegistrar >(new OsxBrowserRegistrar());
 }
 
-void throwOSXStatus(OSStatus status)
-{
-    switch(status) {
-    case 0: break;
-#define X(STATUS) case STATUS: throw std::runtime_error(#STATUS);
-    X(kLSAppInTrashErr)
-    X(kLSUnknownErr)
-    X(kLSNotAnApplicationErr)
-    X(kLSNotInitializedErr)
-    X(kLSDataUnavailableErr)
-    X(kLSApplicationNotFoundErr)
-    X(kLSUnknownTypeErr)
-    X(kLSDataTooOldErr)
-    X(kLSDataErr)
-    X(kLSLaunchInProgressErr)
-    X(kLSNotRegisteredErr)
-    X(kLSAppDoesNotClaimTypeErr)
-    X(kLSAppDoesNotSupportSchemeWarning)
-    X(kLSServerCommunicationErr)
-    X(kLSCannotSetInfoErr)
-    X(kLSNoRegistrationInfoErr)
-    X(kLSIncompatibleSystemVersionErr)
-    X(kLSNoLaunchPermissionErr)
-    X(kLSNoExecutableErr)
-    X(kLSNoClassicEnvironmentErr)
-    X(kLSMultipleSessionsNotSupportedErr)
-            default: throw std::runtime_error("Unrecognized status");
-    }
-}
 
 void registerApplication(std::string const& path)
 {
@@ -206,3 +233,4 @@ void registerApplication(std::string const& path)
     throwOSXStatus(status);
     std::cout << "Registered url:" << [[appUrl absoluteString] UTF8String] << " Status:" << status << std::endl;
 }
+

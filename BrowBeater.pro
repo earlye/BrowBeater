@@ -14,12 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         wmainwindow.cpp \
-    wbrowserbutton.cpp
+    wbrowserbutton.cpp \
+    browbeaterapplication.cpp
 
 
 HEADERS  += wmainwindow.h \
     wbrowserbutton.h \
-    platform_interface.hpp
+    platform_interface.hpp \
+    browbeaterapplication.h
 
 FORMS    += wmainwindow.ui
 
@@ -36,8 +38,8 @@ mac {
   PRE_TARGETDEPS      +=  PkgInfo
 
   icons.target        = icons
-  icons.depends       = mac/browbeater.icns
-  icons.commands      = cp $< BrowBeater.app/Contents/Resources/
+  icons.depends       = $$_PRO_FILE_PWD_/mac/browbeater.icns
+  icons.commands      = export && cp $< BrowBeater.app/Contents/Resources/
   QMAKE_EXTRA_TARGETS += icons
   PRE_TARGETDEPS      += icons                        
 }
