@@ -6,7 +6,6 @@
 #include <QKeyEvent>
 #include <QLayout>
 
-#include <iostream>
 #include <sstream>
 
 WMainWindow::WMainWindow(QWidget *parent) :
@@ -19,7 +18,6 @@ WMainWindow::WMainWindow(QWidget *parent) :
     ui->scrollArea->setFocusPolicy(Qt::NoFocus);
     prevWidget = NULL;
     firstWidget = NULL;
-    //QObject::connect(this,&WMainWindow::,this,&WMainWindow::close);
     QObject* app = QApplication::instance();
     connect(app,SIGNAL(focusChanged(QWidget*, QWidget*)),this,SLOT(theFocusChanged(QWidget*, QWidget*)));
 }
@@ -34,8 +32,7 @@ void WMainWindow::add_browser(std::shared_ptr< Browser const > browser)
     WBrowserButton* btn = new WBrowserButton(browser,ui->scrollAreaWidgetContents);
     ui->scrollAreaWidgetContents->layout()->addWidget(btn);
 
-    QObject::connect(btn,&WBrowserButton::afterClick,this,&WMainWindow::close);
-    QObject::connect(btn,&WBrowserButton::getUrls,this,&WMainWindow::getUrls);
+    QObject::connect(btn,&WBrowserButton::browserSelected,this,&WMainWindow::openWithBrowser);
     btn->setFocusPolicy(Qt::StrongFocus);
     btn->setAutoDefault(true);
     btn->show();
@@ -44,21 +41,20 @@ void WMainWindow::add_browser(std::shared_ptr< Browser const > browser)
         setFocusProxy(btn);
         firstWidget = btn;
     }
-    setTabOrder(prevWidget,btn);
+    if (prevWidget)
+        setTabOrder(prevWidget,btn);
     prevWidget = btn;
 }
 
-void WMainWindow::getUrls(std::vector<std::string const>& urls) {
-    std::cout << "getUrls:" << urls.size() << std::endl;
-    urls.clear();
-    std::copy( m_urls.begin(),m_urls.end(), std::back_inserter(urls) );
+void WMainWindow::openWithBrowser(std::shared_ptr<Browser const> browser)
+{
+    browser->open_urls(m_urls);
+    close();
 }
 
-void WMainWindow::set_urls(std::vector<const std::string> const & urls) {
-
+void WMainWindow::set_urls(std::vector<std::string> const & urls) {
     m_urls.clear();
     std::copy(urls.begin(),urls.end(),std::back_inserter(m_urls));
-
     refreshStatus();
 }
 
@@ -87,7 +83,6 @@ void WMainWindow::theFocusChanged(QWidget*,QWidget*)
 {
     refreshStatus();
 }
-
 
 void WMainWindow::keyPressEvent(QKeyEvent *keyEvent)
 {

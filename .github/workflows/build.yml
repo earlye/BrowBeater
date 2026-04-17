@@ -1,0 +1,37 @@
+name: Build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.2'
+          cache: true
+
+      - name: Install Inkscape
+        run: brew install inkscape
+
+      - name: Build icons
+        run: make -C mac icns
+
+      - name: Build app
+        run: |
+          qmake BrowBeater.pro
+          make
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BrowBeater
+          path: BrowBeater.app
+          retention-days: 7

@@ -16,8 +16,7 @@ public Q_SLOTS:
     void click();
 
 Q_SIGNALS:
-    void getUrls(std::vector<std::string const>& urls);
-    void afterClick();
+    void browserSelected(std::shared_ptr<Browser const> browser);
 
 private:
     std::shared_ptr<Browser const> m_browser;

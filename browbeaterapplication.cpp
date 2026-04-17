@@ -4,8 +4,6 @@
 
 #include <QFileOpenEvent>
 
-#include <iostream>
-
 #ifdef Q_QDOC
     BrowBeaterApplication::BrowBeaterApplication(int &argc, char **argv)
         : QApplication(argc,argv)
@@ -14,12 +12,10 @@
         : QApplication(argc,argv,applicationFlags)
 #endif
     {
-//        connectOs(*this);
     }
 
     BrowBeaterApplication::~BrowBeaterApplication()
     {
-//        disconnectOs(*this);
     }
 
     bool BrowBeaterApplication::event(QFileOpenEvent *theEvent)
@@ -27,13 +23,10 @@
         std::string url = theEvent->url().toString().toStdString();
 
         if (url.length()) {
-
-            std::vector< std::string const > urls;
+            std::vector<std::string> urls;
             urls.push_back(url);
-            if (urls.size()) {
-                mainWindow.set_urls(urls);
-                mainWindow.show();
-            }
+            mainWindow.set_urls(urls);
+            mainWindow.show();
         }
         return QApplication::event(theEvent);
     }

@@ -1,7 +1,5 @@
 #include "wbrowserbutton.h"
 
-#include <iostream>
-
 WBrowserButton::WBrowserButton(std::shared_ptr<Browser const> browser, QWidget* parent)
     : QPushButton(QString(browser->get_name().c_str()), parent),
       m_browser(browser)
@@ -14,14 +12,5 @@ WBrowserButton::WBrowserButton(std::shared_ptr<Browser const> browser, QWidget* 
 
 void WBrowserButton::click()
 {
-    std::cout << "clicked!" << std::endl;
-
-    std::vector<std::string const> urls;
-
-    emit getUrls(urls);
-
-    std::cout << "urls:" << std::endl;
-    m_browser->open_urls(urls);
-
-    emit afterClick();
+    emit browserSelected(m_browser);
 }
