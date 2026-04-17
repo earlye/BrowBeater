@@ -6,14 +6,14 @@ build-*
 !.github
 !.gitignore
 ui_*.h
-Makefile
 *~
 moc_*
 qmake_qmake_immediate.qrc
 qrc_qmake_qmake_immediate.cpp
+Makefile
 
 # Generated icon assets (built from mac/icon.svg)
 mac/icon*.png
 mac/browbeater.iconset/
 mac/browbeater.icns
-
+!mac/Makefile

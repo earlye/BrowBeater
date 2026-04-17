@@ -22,7 +22,12 @@ jobs:
         run: brew install inkscape
 
       - name: Build icons
-        run: make -C mac icns
+        run: |
+          set -euo pipefail
+          pwd
+          find . -type f
+          cat mac/Makefile
+          make -C mac icns
 
       - name: Build app
         run: |
