@@ -18,17 +18,17 @@ public:
     ~WMainWindow();
 
     void add_browser( std::shared_ptr< Browser const > browser );
-    void set_urls( std::vector< std::string const > const& urls );
-    void keyPressEvent(QKeyEvent *event); // declaration
+    void set_urls( std::vector<std::string> const& urls );
+    void keyPressEvent(QKeyEvent *event);
 
 public Q_SLOTS:
     void refreshStatus();
     void theFocusChanged(QWidget*,QWidget*);
-    void getUrls(std::vector<std::string const>& urls);
+    void openWithBrowser(std::shared_ptr<Browser const> browser);
 
 private:
     Ui::WMainWindow *ui;
-    std::vector< std::string const > m_urls;
+    std::vector<std::string> m_urls;
     QWidget* prevWidget;
     QWidget* firstWidget;
 };

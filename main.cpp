@@ -4,7 +4,6 @@
 #include "platform_interface.hpp"
 
 #include <QApplication>
-#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -14,12 +13,13 @@ int main(int argc, char *argv[])
 
     std::shared_ptr< BrowserRegistrar > registrar = getBrowserRegistrar();
     std::vector< std::shared_ptr< Browser > > browsers = registrar->listBrowsers();
+
     for( auto const& browser : browsers )
       {
         a.getMainWindow().add_browser(browser);
       }
 
-    std::vector< std::string const > urls;
+    std::vector<std::string> urls;
     for (int i = 1; i < argc; ++i) {
         urls.push_back(std::string(argv[i]));
     }
@@ -28,7 +28,6 @@ int main(int argc, char *argv[])
         a.getMainWindow().set_urls(urls);
         a.getMainWindow().show();
     }
-
 
     return a.exec();
 }
